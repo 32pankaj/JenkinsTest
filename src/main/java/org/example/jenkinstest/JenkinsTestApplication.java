@@ -16,25 +16,39 @@ public class JenkinsTestApplication {
 
 		System.out.println("This is is  ");
 
-		List<Product> productsList;
-        productsList = new ArrayList<Product>();
+		List<Product> productsList1 = new ArrayList<Product>();
         //Adding Products
-		productsList.add(new Product(1,"HP Laptop",25000f));
-		productsList.add(new Product(2,"Dell Laptop",30000f));
-		productsList.add(new Product(3,"Lenevo Laptop",28000f));
-		productsList.add(new Product(4,"Sony Laptop",28000f));
-		productsList.add(new Product(5,"Apple Laptop",90000f));
+		productsList1.add(new Product(1,"HP Laptop",25000f));
+		productsList1.add(new Product(2,"Dell Laptop",30000f));
+		productsList1.add(new Product(3,"Lenevo Laptop",28000f));
+		productsList1.add(new Product(4,"Sony Laptop",28000f));
+		productsList1.add(new Product(5,"Apple Laptop",90000f));
 
-		Float v = productsList.stream().filter(p -> p.price > 25000)
+		Float v = productsList1.stream().filter(p -> p.price > 25000)
 				.map(p -> p.price)
 				.reduce(1000.0f,(price, sum) -> sum + price);
 		System.out.println(v);
 
-		Optional<Float> reduce = productsList.stream()
+		Optional<Float> reduce = productsList1.stream()
 				.map(p -> p.price)
 				.reduce(Float::sum);
 		System.out.println(reduce.get());
 
+
+		List<Product> productsList2 = new ArrayList<Product>();
+		//Adding Products
+		productsList2.add(new Product(1,"HP Laptop",25000f));
+		productsList2.add(new Product(2,"Dell Laptop",30000f));
+		productsList2.add(new Product(3,"Lenevo Laptop",28000f));
+		productsList2.add(new Product(4,"Sony Laptop",28000f));
+		productsList2.add(new Product(5,"Apple Laptop",90000f));
+
+		List<List<Product>> lists=new ArrayList<>();
+		lists.add(productsList1);
+		lists.add(productsList2);
+		lists.stream().flatMap(plist->plist.stream())
+				.filter(p->p.price>25000)
+				.map(p->p.id).forEach(System.out::println);
 
 	}
 }
